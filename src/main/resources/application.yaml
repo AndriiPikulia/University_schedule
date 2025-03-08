@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: University_schedule
+  datasource:
+    url: jdbc:postgresql://localhost:5432/schedule_university
+    hikari:
+      username: postgres
+      password: anansi228
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: update
+    generate-ddl: true
