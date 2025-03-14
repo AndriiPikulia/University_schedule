@@ -28,6 +28,9 @@ public class Account {
     @Column(nullable=false)
     private String email;
 
+    @Column(nullable = false)
+    private String password;
+
     @Column(nullable=false)
     private Relation department;
 
