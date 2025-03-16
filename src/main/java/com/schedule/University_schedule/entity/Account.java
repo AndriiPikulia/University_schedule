@@ -1,7 +1,9 @@
 package com.schedule.University_schedule.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.management.relation.Relation;
@@ -9,6 +11,8 @@ import javax.management.relation.Relation;
 @Setter
 @Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(schema = "Schedule")
 public class Account {
     @Id
