@@ -6,13 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "Schedule")
-public class Specialities {
+@Table(name = "specialty", schema = "public")
+public class Specialty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -27,11 +29,10 @@ public class Specialities {
     @Column(nullable = false)
     private String fieldOfStudy;
 
-    //    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "account"),
-//    joinColumns = @JoinColumn(name = "account_id",
-//            referencedColumnName = "id"),
-//    inverseJoinColumns = @JoinColumn(name = "speciality_id", referencedColumnName = "id"))
-//    private List <Speciality> specialities;
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "account",
+    joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"))
+    private List<Account> accounts;
 
 }

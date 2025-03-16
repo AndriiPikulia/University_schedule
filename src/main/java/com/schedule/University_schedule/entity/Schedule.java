@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table
+@Table(name = "schedule", schema = "public")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Schedule {
@@ -21,7 +21,7 @@ public class Schedule {
     @Column(nullable = false)
     private String yearOfStudy;
 
-//    @ManyToOne
-//    @JoinColumn(name = "speciality_id", referencedColumnName = "schedule_id")
-//    private Speciality speciality;
+    @ManyToOne
+    @JoinColumn(name = "speciality_id", referencedColumnName = "schedule_id")
+    private Specialty specialty;
 }

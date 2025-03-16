@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.management.relation.Relation;
+import java.util.List;
 
 @Setter
 @Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "Schedule")
+@Table(name = "account", schema = "public")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,10 +37,16 @@ public class Account {
     private String password;
 
     @Column(nullable=false)
-    private Relation department;
+    private String department;
 
     @Column(nullable=false)
     @Enumerated(EnumType.STRING)
     private AccessLevel accessLevel;
+
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "department",
+            joinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"))
+    private List<Department> departments;
 
 }
