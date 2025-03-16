@@ -29,4 +29,7 @@ public class Department {
             joinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"))
     private List<Specialty> specialties;
+
+    @ManyToMany(mappedBy = "accounts")
+    private List<Account> accounts;
 }
