@@ -24,12 +24,12 @@ public class Department {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "specialty",
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinTable(name = "departments_specialties",
             joinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"))
     private List<Specialty> specialties;
 
-    @ManyToMany(mappedBy = "accounts")
+    @ManyToMany(mappedBy = "departments", fetch = FetchType.LAZY)
     private List<Account> accounts;
 }

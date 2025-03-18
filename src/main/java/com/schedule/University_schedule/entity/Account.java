@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.management.relation.Relation;
 import java.util.List;
 
 @Setter
@@ -29,26 +28,24 @@ public class Account {
 
     @Column(nullable=false)
     private String middleName;
+    //use embedded class
 
-    @Column(nullable=false)
+    @Column(nullable=false, length = 100)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
     @Column(nullable=false)
-    private String department;
-
-    @Column(nullable=false)
     @Enumerated(EnumType.STRING)
     private AccessLevel accessLevel;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "department",
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinTable(name = "accounts_departments",
             joinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"))
     private List<Department> departments;
 
-    @ManyToMany(mappedBy = "specialties")
+    @ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
     private List<Specialty> specialties;
 }

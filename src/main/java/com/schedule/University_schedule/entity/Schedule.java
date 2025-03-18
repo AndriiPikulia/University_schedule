@@ -21,7 +21,7 @@ public class Schedule {
     @Column(nullable = false)
     private String yearOfStudy;
 
-    @ManyToOne
-    @JoinColumn(name = "speciality_id", referencedColumnName = "schedule_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "speciality_id", referencedColumnName = "id")
     private Specialty specialty;
 }

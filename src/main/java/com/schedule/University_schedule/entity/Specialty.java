@@ -29,12 +29,12 @@ public class Specialty {
     @Column(nullable = false)
     private String fieldOfStudy;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "account",
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinTable(name = "accounts_specialties",
     joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"))
     private List<Account> accounts;
 
-    @ManyToMany(mappedBy = "departments")
+    @ManyToMany(mappedBy = "specialties", fetch = FetchType.LAZY)
     private List<Department> departments;
 }
