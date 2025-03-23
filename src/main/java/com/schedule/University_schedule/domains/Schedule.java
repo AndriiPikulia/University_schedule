@@ -1,4 +1,4 @@
-package com.schedule.University_schedule.entity;
+package com.schedule.University_schedule.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

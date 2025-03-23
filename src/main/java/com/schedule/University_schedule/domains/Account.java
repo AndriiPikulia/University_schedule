@@ -1,4 +1,4 @@
-package com.schedule.University_schedule.entity;
+package com.schedule.University_schedule.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable=false, updatable=false)
+    @Column(nullable = false, updatable = false)
     private Long id;
 
     @Embedded
@@ -28,13 +28,13 @@ public class Account {
     })
     private UserName userName;
 
-    @Column(nullable=false, length = 100)
+    @Column(nullable = false, length = 100)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AccessLevel accessLevel;
 

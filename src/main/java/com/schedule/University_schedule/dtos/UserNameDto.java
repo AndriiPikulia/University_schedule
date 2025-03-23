@@ -1,13 +1,13 @@
-package com.schedule.University_schedule.entity;
+package com.schedule.University_schedule.dtos;
 
-import jakarta.persistence.Embeddable;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Embeddable
+@Data
 @Getter
 @Setter
-public class UserName {
+public class UserNameDto {
     private String firstName;
     private String lastName;
     private String middleName;
