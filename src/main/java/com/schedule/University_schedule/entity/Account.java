@@ -20,15 +20,13 @@ public class Account {
     @Column(nullable=false, updatable=false)
     private Long id;
 
-    @Column(nullable=false)
-    private String firstName;
-
-    @Column(nullable=false)
-    private String lastName;
-
-    @Column(nullable=false)
-    private String middleName;
-    //use embedded class
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "firstName", column = @Column(name = "first_name", nullable = false)),
+            @AttributeOverride(name = "lastName", column = @Column(name = "last_name", nullable = false)),
+            @AttributeOverride(name = "middleName", column = @Column(name = "middle_name", nullable = false))
+    })
+    private UserName userName;
 
     @Column(nullable=false, length = 100)
     private String email;
