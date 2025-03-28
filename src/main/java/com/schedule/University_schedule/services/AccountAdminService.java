@@ -10,14 +10,15 @@ import com.schedule.University_schedule.mappers.UserNameMapper;
 import com.schedule.University_schedule.repositories.AccountRepository;
 import com.schedule.University_schedule.requests.AccountAdminCreationRequest;
 import com.schedule.University_schedule.requests.AccountAdminUpdateRequest;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 @Service
@@ -46,11 +47,13 @@ public class AccountAdminService {
     }
 
     public List<AccountDto> getAll() {
-        return accountMapper.toDtos(accountRepository.findAll());
+        List<Account> accounts = accountRepository.findAll();
+        return accountMapper.toDtos(accounts);
     }
 
-    public Account getById(Long id)  {
-        return accountRepository.findById(id).orElseThrow(() -> new AccountException("Account not found"));
+    public Account getById(Long id) {
+        AccountException exception = new AccountException("Account not found");
+        return accountRepository.findById(id).orElseThrow(() -> exception);
     }
 
     public AccountDto update(@Valid AccountAdminUpdateRequest updateRequest, Long id) {
@@ -81,9 +84,18 @@ public class AccountAdminService {
     }
 
     public void delete(Long id) {
-        if (!accountRepository.existsById(id)) {
-            throw new AccountException("Account not exists");
-        }
         accountRepository.deleteById(id);
+    }
+
+    public ResponseEntity<List<AccountDto>> findAll() {
+        List<Account> accounts = accountRepository.findAll();
+        List<AccountDto> accountDtos = accountMapper.toDtos(accounts);
+        return ResponseEntity.ok(accountDtos);
+    }
+
+    public ResponseEntity<AccountDto> findById(@PathVariable Long id) {
+        Optional<Account> account = accountRepository.findById(id);
+        return account.map(value -> ResponseEntity.ok(accountMapper.toDto(value)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
