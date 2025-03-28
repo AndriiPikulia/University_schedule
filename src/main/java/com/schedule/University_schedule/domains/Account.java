@@ -1,4 +1,4 @@
-package com.schedule.University_schedule.entity;
+package com.schedule.University_schedule.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,8 +8,8 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,26 +17,24 @@ import java.util.List;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable=false, updatable=false)
+    @Column(nullable = false, updatable = false)
     private Long id;
 
-    @Column(nullable=false)
-    private String firstName;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "firstName", column = @Column(name = "first_name", nullable = false)),
+            @AttributeOverride(name = "lastName", column = @Column(name = "last_name", nullable = false)),
+            @AttributeOverride(name = "middleName", column = @Column(name = "middle_name", nullable = false))
+    })
+    private UserName userName;
 
-    @Column(nullable=false)
-    private String lastName;
-
-    @Column(nullable=false)
-    private String middleName;
-    //use embedded class
-
-    @Column(nullable=false, length = 100)
+    @Column(nullable = false, length = 100)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AccessLevel accessLevel;
 

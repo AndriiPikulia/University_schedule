@@ -1,4 +1,4 @@
-package com.schedule.University_schedule.entity;
+package com.schedule.University_schedule.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,8 +31,8 @@ public class Specialty {
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "accounts_specialties",
-    joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"))
     private List<Account> accounts;
 
     @ManyToMany(mappedBy = "specialties", fetch = FetchType.LAZY)

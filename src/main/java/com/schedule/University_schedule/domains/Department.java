@@ -1,4 +1,4 @@
-package com.schedule.University_schedule.entity;
+package com.schedule.University_schedule.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false,  updatable = false)
+    @Column(nullable = false, updatable = false)
     private Long id;
 
     @Column(nullable = false)
